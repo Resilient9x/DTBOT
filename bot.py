@@ -26,9 +26,13 @@ api_id = int(os.environ.get("API_ID"))
 api_hash = os.environ.get("API_HASH")
 
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-google_creds_json = os.environ.get("GOOGLE_CREDS_JSON")
+import base64
+
+google_creds_b64 = os.environ.get("GOOGLE_CREDS_B64")
+google_creds_json = base64.b64decode(google_creds_b64).decode('utf-8')
 google_creds = json.loads(google_creds_json)
 creds = ServiceAccountCredentials.from_json_keyfile_dict(google_creds, scope)
+
 client_gsheet = gspread.authorize(creds)
 sheet = client_gsheet.open("LOG").sheet1
 

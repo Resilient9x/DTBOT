@@ -15,9 +15,14 @@ print("API_ID:", os.environ.get("API_ID"))
 sys.stdout.flush()
 
 missing_vars = []
+missing_vars = []
 if not os.environ.get("API_ID"): missing_vars.append("API_ID")
 if not os.environ.get("API_HASH"): missing_vars.append("API_HASH")
-if not os.environ.get("GOOGLE_CREDS_JSON"): missing_vars.append("GOOGLE_CREDS_JSON")
+if not os.environ.get("GOOGLE_CREDS_B64"): missing_vars.append("GOOGLE_CREDS_B64")
+
+if missing_vars:
+    raise EnvironmentError(f"Missing required environment variables: {', '.join(missing_vars)}")
+
 
 if missing_vars:
     raise EnvironmentError(f"Missing required environment variables: {', '.join(missing_vars)}")
